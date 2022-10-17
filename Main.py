@@ -100,15 +100,15 @@ def create_signature():
 def create_confusion_matrix(clf, x_test, y_test):
     from sklearn.metrics import plot_confusion_matrix
     plot_confusion_matrix(clf, x_test, y_test)
-    plt.savefig('confusion_matris.png')
+    plt.savefig('confusion_matrix.png')
     print("\n---confusion matrix plot saved---")
 
 
-def create_experiment(experiment_name, run_name, run_metrics, model, model_name, signature, confusion_matrix_path=None,
+def create_experiment(experiment_name, run_name, run_metrics, model, signature, confusion_matrix_path=None,
                       run_p=None):
     # print("\n Setting Tracking URI")
-    # mlflow.set_tracking_uri("http://ilcepoc2353:1235")
-    #   mlflow.set_experiment(experiment_name)
+    mlflow.set_tracking_uri("http://ilcepoc2353:1235")
+    mlflow.set_experiment(experiment_name)
     with mlflow.start_run(run_name=run_name):
         for param in run_p:
             mlflow.log_param(param, run_p[param])
@@ -123,6 +123,11 @@ def create_experiment(experiment_name, run_name, run_metrics, model, model_name,
         # mlflow.sklearn.save_model(model,model_name)
         # print('Model %s is saved to path : %s'%(model,os.curdir))
         print('Run - %s is logged to experiment - %s' % (run_name, experiment_name))
+        directory_path = "Model"
+        os.mkdir(directory_path)
+        mlflow.sklearn.save_model(model, directory_path)
+        print("current directory is ", os.curdir())
+
 
 
 if __name__ == "__main__":
