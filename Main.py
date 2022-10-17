@@ -163,8 +163,7 @@ if __name__ == "__main__":
     create_confusion_matrix(model, X_test, Y_test)
     run_metrics = get_metrics(Y_test, Y_pred, Y_pred_proba)
     print(run_metrics)
-    signature = create_signature()
-    # infer_signature(X_train, model.predict(X_test))
+    signature = infer_signature(X_train, model.predict(X_test))
     run_name = "Docker"
     print("\n---Creating Experiment---")
     create_experiment(experiment_name, run_name, run_metrics, model, signature, 'confusion_matrix.png',
