@@ -1,0 +1,9 @@
+name: mlflow-project
+
+docker_env:
+ image: mlflow-image
+
+entry_points:
+ main:
+  command: "bash start.sh"
+
